@@ -12,10 +12,10 @@ import com.marceloalves.cursomc.repositoreis.CategoriaRepositoy;
 public class CategoriaService {
 
 	@Autowired
-	private CategoriaRepositoy repository;
+	private CategoriaRepositoy repo;
 
 	public Categoria buscar(Integer id) {
-		Optional<Categoria> obj = repository.findById(id);
+		Optional<Categoria> obj = repo.findById(id);
 		return obj.orElse(null);
 	}
 
