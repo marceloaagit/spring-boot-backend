@@ -7,6 +7,9 @@ import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
 
+import com.marceloalves.api.services.validation.ClienteInsert;
+
+@ClienteInsert
 public class ClienteNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -18,17 +21,24 @@ public class ClienteNewDTO implements Serializable {
 	@Email(message = "Email inválido")
 	private String email;
 
+	@NotEmpty(message = "Preenchimento Obrigatório")
 	private String cpfOuCnpj;
 
 	private Integer tipo;
 
 	// Endereço
+	@NotEmpty(message = "Preenchimento Obrigatório")
 	private String logradouro;
+
+	@NotEmpty(message = "Preenchimento Obrigatório")
 	private String numero;
+
 	private String complemento;
 	private String bairro;
+	@NotEmpty(message = "Preenchimento Obrigatório")
 	private String cep;
 
+	@NotEmpty(message = "Preenchimento Obrigatório")
 	private String telefone1;
 	private String telefone2;
 	private String telefone3;
