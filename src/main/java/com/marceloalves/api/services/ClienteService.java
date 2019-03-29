@@ -17,7 +17,6 @@ import com.marceloalves.api.entities.Cidade;
 import com.marceloalves.api.entities.Cliente;
 import com.marceloalves.api.entities.Endereco;
 import com.marceloalves.api.entities.enums.TipoCliente;
-import com.marceloalves.api.repositories.CidadeRepository;
 import com.marceloalves.api.repositories.ClienteRepository;
 import com.marceloalves.api.repositories.EnderecoRepository;
 import com.marceloalves.api.services.exceptions.DataIntegrityException;
@@ -36,7 +35,7 @@ public class ClienteService {
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
 	}
-	
+
 	@Transactional
 	public Cliente insert(Cliente obj) {
 		obj.setId(null);
@@ -78,20 +77,20 @@ public class ClienteService {
 	public Cliente fromDTO(ClienteDTO objDTO) {
 		return new Cliente(objDTO.getId(), objDTO.getNome(), objDTO.getEmail(), null, null);
 	}
-	
+
 	public Cliente fromDTO(ClienteNewDTO objDTO) {
-		Cliente cli = new Cliente(null, objDTO.getNome(), objDTO.getEmail(), objDTO.getCpfOuCnpj(), TipoCliente.toEnum(objDTO.getTipo()));
+		Cliente cli = new Cliente(null, objDTO.getNome(), objDTO.getEmail(), objDTO.getCpfOuCnpj(),
+				TipoCliente.toEnum(objDTO.getTipo()));
 		Cidade cid = new Cidade(objDTO.getCidadeId(), null, null);
-		Endereco end = new Endereco(null, objDTO.getLogradouro(), objDTO.getNumero(), objDTO.getComplemento(), objDTO.getBairro(), objDTO.getCep(), cli, cid);
+		Endereco end = new Endereco(null, objDTO.getLogradouro(), objDTO.getNumero(), objDTO.getComplemento(),
+				objDTO.getBairro(), objDTO.getCep(), cli, cid);
 		cli.getEnderecos().add(end);
 		cli.getTelefones().add(objDTO.getTelefone1());
-		if(objDTO.getTelefone2() != null)
+		if (objDTO.getTelefone2() != null)
 			cli.getTelefones().add(objDTO.getTelefone2());
-		if(objDTO.getTelefone3() != null)
+		if (objDTO.getTelefone3() != null)
 			cli.getTelefones().add(objDTO.getTelefone3());
 		return cli;
 	}
-
-
 
 }
