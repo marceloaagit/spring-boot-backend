@@ -1,7 +1,6 @@
 package com.marceloalves.api.config;
 
 import java.text.ParseException;
-import java.util.TimeZone;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,13 +16,13 @@ public class ProfileDevConfig {
 
 	@Autowired
 	private DBService dbService;
-	
+
 	@Value("${spring.jpa.hibernate.ddl-auto}")
 	private String strategy;
-	
+
 	@Bean
 	public boolean instantiateDatabase() throws ParseException {
-		if(!"create".equals(strategy)) {
+		if (!"create".equals(strategy)) {
 			return false;
 		}
 		dbService.instantiateTestDatabase();
