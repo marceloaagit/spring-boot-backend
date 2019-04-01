@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.marceloalves.api.entities.Categoria;
@@ -34,23 +35,25 @@ import com.marceloalves.api.repositories.ProdutoRepository;
 public class DBService {
 
 	@Autowired
-	CategoriaRepository categoriaRepository;
+	private CategoriaRepository categoriaRepository;
 	@Autowired
-	ProdutoRepository produtoRepositoy;
+	private ProdutoRepository produtoRepositoy;
 	@Autowired
-	CidadeRepository cidadeRepositoy;
+	private CidadeRepository cidadeRepositoy;
 	@Autowired
-	EstadoRepository estadoRepositoy;
+	private EstadoRepository estadoRepositoy;
 	@Autowired
-	EnderecoRepository enderecoRepositoy;
+	private EnderecoRepository enderecoRepositoy;
 	@Autowired
-	ClienteRepository clienteRepositoy;
+	private ClienteRepository clienteRepositoy;
 	@Autowired
-	PagamentoRepository pagamentoRepositoy;
+	private PagamentoRepository pagamentoRepositoy;
 	@Autowired
-	PedidoRepository pedidoRepositoy;
+	private PedidoRepository pedidoRepositoy;
 	@Autowired
-	ItemPedidoRepository itemPedidoRepositoy;
+	private ItemPedidoRepository itemPedidoRepositoy;
+	@Autowired
+	private BCryptPasswordEncoder bc;
 
 	public void instantiateTestDatabase() throws ParseException {
 
@@ -110,7 +113,7 @@ public class DBService {
 		estadoRepositoy.saveAll(Arrays.asList(est1, est2));
 		cidadeRepositoy.saveAll(Arrays.asList(c1, c2, c3));
 
-		Cliente cli1 = new Cliente(null, "Marcelo", "marceloalvesandrade@gmail.com", "36378912377", TipoCliente.PESSOAFISICA);
+		Cliente cli1 = new Cliente(null, "Marcelo", "marceloalvesandrade@gmail.com", "36378912377", TipoCliente.PESSOAFISICA, bc.encode("123"));
 		cli1.getTelefones().addAll(Arrays.asList("67 3318-4444", "67 3318-5555"));
 		Endereco e1 = new Endereco(null, "Rua Flores", "1000", "casa 1", "Rita Veira", "79000-100", cli1, c1);
 		Endereco e2 = new Endereco(null, "Rua tavares", "2000", "casa 2", "Lapa", "79000-100", cli1, c2);
