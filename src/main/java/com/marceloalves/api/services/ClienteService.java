@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -17,9 +18,12 @@ import com.marceloalves.api.dtos.ClienteNewDTO;
 import com.marceloalves.api.entities.Cidade;
 import com.marceloalves.api.entities.Cliente;
 import com.marceloalves.api.entities.Endereco;
+import com.marceloalves.api.entities.enums.Perfil;
 import com.marceloalves.api.entities.enums.TipoCliente;
 import com.marceloalves.api.repositories.ClienteRepository;
 import com.marceloalves.api.repositories.EnderecoRepository;
+import com.marceloalves.api.security.UserSpringSecurity;
+import com.marceloalves.api.services.exceptions.AuthorizationException;
 import com.marceloalves.api.services.exceptions.DataIntegrityException;
 import com.marceloalves.api.services.exceptions.ObjectNotFoundException;
 
@@ -33,7 +37,18 @@ public class ClienteService {
 	@Autowired
 	private BCryptPasswordEncoder bc;
 
+	@Value("${img.prefix.client.profile}")
+	private String prefix;
+
+	@Value("${img.profile.size}")
+	private Integer size;
+
 	public Cliente find(Integer id) {
+		UserSpringSecurity user = UserService.authenticated();
+		if (user == null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso negado");
+		}
+
 		Optional<Cliente> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));

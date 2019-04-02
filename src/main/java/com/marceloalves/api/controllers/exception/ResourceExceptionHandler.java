@@ -9,6 +9,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.marceloalves.api.services.exceptions.AuthorizationException;
 import com.marceloalves.api.services.exceptions.DataIntegrityException;
 import com.marceloalves.api.services.exceptions.ObjectNotFoundException;
 
@@ -28,6 +29,13 @@ public class ResourceExceptionHandler {
 		StandardError standardError = new StandardError(HttpStatus.BAD_REQUEST.value(), e.getMessage(),
 				System.currentTimeMillis());
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(standardError);
+	}
+	
+	@ExceptionHandler(AuthorizationException.class)
+	public ResponseEntity<StandardError> authorization(AuthorizationException e, HttpServletRequest request) {
+		StandardError standardError = new StandardError(HttpStatus.FORBIDDEN.value(), e.getMessage(),
+				System.currentTimeMillis());
+		return ResponseEntity.status(HttpStatus.FORBIDDEN).body(standardError);
 	}
 	
 	
