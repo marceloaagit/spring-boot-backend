@@ -37,11 +37,11 @@ public class ClienteService {
 	@Autowired
 	private BCryptPasswordEncoder bc;
 
-	@Value("${img.prefix.client.profile}")
-	private String prefix;
-
-	@Value("${img.profile.size}")
-	private Integer size;
+//	@Value("${img.prefix.client.profile}")
+//	private String prefix;
+//
+//	@Value("${img.profile.size}")
+//	private Integer size;
 
 	public Cliente find(Integer id) {
 		UserSpringSecurity user = UserService.authenticated();
