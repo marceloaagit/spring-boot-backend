@@ -49,12 +49,13 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 	}
 
 	@Override
-	protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain,
+	protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse response, FilterChain chain,
 			Authentication auth) throws IOException, ServletException {
 
 		String username = ((UserSpringSecurity) auth.getPrincipal()).getUsername();
 		String token = jwtUtil.generateToken(username);
-		res.addHeader("Authorization", "Bearer " + token);
+		response.addHeader("Authorization", "Bearer " + token);
+		response.addHeader("access-control-expose-headers", "Authorization");//configurando o cors do backend
 	}
 
 	private class JWTAuthenticationFailureHandler implements AuthenticationFailureHandler {
