@@ -1,9 +1,12 @@
 package com.marceloalves.api.services;
 
+import java.awt.image.BufferedImage;
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -11,6 +14,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.marceloalves.api.dtos.ClienteDTO;
 import com.marceloalves.api.dtos.ClienteNewDTO;
@@ -35,12 +39,16 @@ public class ClienteService {
 	private EnderecoRepository enderecoRepository;
 	@Autowired
 	private BCryptPasswordEncoder bc;
+	@Autowired
+	private ImageService imageService;
+	@Autowired
+	private S3Service s3Service;
 
-//	@Value("${img.prefix.client.profile}")
-//	private String prefix;
-//
-//	@Value("${img.profile.size}")
-//	private Integer size;
+	@Value("${img.prefix.client.profile}")
+	private String prefix;
+
+	@Value("${img.profile.size}")
+	private Integer size;
 
 	public Cliente find(Integer id) {
 		UserSpringSecurity user = UserService.authenticated();
@@ -108,6 +116,21 @@ public class ClienteService {
 		if (objDTO.getTelefone3() != null)
 			cli.getTelefones().add(objDTO.getTelefone3());
 		return cli;
+	}
+
+	public URI uploadProfilePicture(MultipartFile multipartFile) {
+		UserSpringSecurity user = UserService.authenticated();
+		if (user == null) {
+			throw new AuthorizationException("Acesso negado");
+		}
+
+		BufferedImage jpgImage = imageService.getJpgImageFromFile(multipartFile);
+		jpgImage = imageService.cropSquare(jpgImage);
+		jpgImage = imageService.resize(jpgImage, size);
+
+		String fileName = prefix + user.getId() + ".jpg";
+
+		return s3Service.uploadFile(imageService.getInputStream(jpgImage, "jpg"), fileName, "image");
 	}
 
 }
