@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerMapping;
 
 import com.marceloalves.api.controllers.exception.FieldMessage;
-import com.marceloalves.api.dtos.ClienteDTO;
+import com.marceloalves.api.dto.ClienteDTO;
 import com.marceloalves.api.entities.Cliente;
 import com.marceloalves.api.repositories.ClienteRepository;
 

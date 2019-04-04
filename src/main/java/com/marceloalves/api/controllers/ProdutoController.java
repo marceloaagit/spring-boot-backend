@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.marceloalves.api.controllers.utils.URL;
-import com.marceloalves.api.dtos.ProdutoDTO;
+import com.marceloalves.api.dto.ProdutoDTO;
 import com.marceloalves.api.entities.Produto;
 import com.marceloalves.api.services.ProdutoService;
 

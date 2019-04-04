@@ -9,7 +9,7 @@ import javax.validation.ConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.marceloalves.api.controllers.exception.FieldMessage;
-import com.marceloalves.api.dtos.ClienteNewDTO;
+import com.marceloalves.api.dto.ClienteNewDTO;
 import com.marceloalves.api.entities.Cliente;
 import com.marceloalves.api.entities.enums.TipoCliente;
 import com.marceloalves.api.repositories.ClienteRepository;

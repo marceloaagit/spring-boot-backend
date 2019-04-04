@@ -1,4 +1,4 @@
-package com.marceloalves.api.dtos;
+package com.marceloalves.api.dto;
 
 import java.io.Serializable;
 

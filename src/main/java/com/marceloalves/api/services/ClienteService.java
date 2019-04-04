@@ -16,8 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.marceloalves.api.dtos.ClienteDTO;
-import com.marceloalves.api.dtos.ClienteNewDTO;
+import com.marceloalves.api.dto.ClienteDTO;
+import com.marceloalves.api.dto.ClienteNewDTO;
 import com.marceloalves.api.entities.Cidade;
 import com.marceloalves.api.entities.Cliente;
 import com.marceloalves.api.entities.Endereco;

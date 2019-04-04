@@ -11,7 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.marceloalves.api.dtos.CategoriaDTO;
+import com.marceloalves.api.dto.CategoriaDTO;
 import com.marceloalves.api.entities.Categoria;
 import com.marceloalves.api.repositories.CategoriaRepository;
 import com.marceloalves.api.services.exceptions.DataIntegrityException;

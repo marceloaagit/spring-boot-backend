@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.marceloalves.api.dtos.ClienteDTO;
-import com.marceloalves.api.dtos.ClienteNewDTO;
+import com.marceloalves.api.dto.ClienteDTO;
+import com.marceloalves.api.dto.ClienteNewDTO;
 import com.marceloalves.api.entities.Cliente;
 import com.marceloalves.api.services.ClienteService;
 

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.marceloalves.api.dtos.EmailDTO;
+import com.marceloalves.api.dto.EmailDTO;
 import com.marceloalves.api.security.JWTUtil;
 import com.marceloalves.api.security.UserSpringSecurity;
 import com.marceloalves.api.services.AuthService;
